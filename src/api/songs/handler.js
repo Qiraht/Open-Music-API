@@ -1,13 +1,15 @@
 const autoBind = require('auto-bind');
 
 class SongsHandler {
-  constructor(service) {
+  constructor(service, validator) {
     this._service = service;
+    this._validator = validator;
 
     autoBind(this);
   }
 
   async postSongHandler(request, h) {
+    this._validator.validateSongPayload(request.payload);
     const { title, year, genre, performer, duration, albumId } = request.payload;
     const songId = await this._service.addSong({ title, year, genre, performer, duration, albumId });
 
@@ -45,6 +47,7 @@ class SongsHandler {
   }
 
   async putSongByIdHandler(request) {
+    this._validator.validateSongPayload(request.payload);
     const { id } = request.params;
     await this._service.editSongById(id, request.payload);
 
