@@ -43,7 +43,7 @@ class AlbumsHandler {
 
     return {
       status: 'success',
-      message: 'Album berhasil diperbarui'
+      message: 'Album berhasil diperbarui',
     };
   }
 
