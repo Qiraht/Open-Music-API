@@ -15,7 +15,7 @@ class AlbumsHandler {
 
     const response = h.response({
       status: 'success',
-      message: 'Lagu berhasil ditambahkan',
+      message: 'Album berhasil ditambahkan',
       data: {
         albumId,
       },
@@ -43,7 +43,7 @@ class AlbumsHandler {
 
     return {
       status: 'success',
-      message: 'Lagu berhasil diperbarui'
+      message: 'Album berhasil diperbarui'
     };
   }
 
@@ -53,7 +53,7 @@ class AlbumsHandler {
 
     return {
       status: 'success',
-      message: 'Lagu berhasil dihapus',
+      message: 'Album berhasil dihapus',
     };
   }
 }
