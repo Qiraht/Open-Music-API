@@ -12,7 +12,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Second Re-iteration of my submission, because i've done a bad things, pretty much i've finished all of the features, but didn't test everytime a new feature implemented and it was grave mistake only did the testing after everything was done and debugging it was a mistake. Where it should have been like this, new feature implemented => test feature => continue fixing/implementing feature. so i decided to restart it again",
   "devDependencies": {
     "@eslint/js": "^9.8.0",
     "eslint": "^9.8.0",
@@ -23,6 +23,7 @@
   "dependencies": {
     "@hapi/hapi": "^21.3.10",
     "auto-bind": "^4.0.0",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "joi": "^17.13.3",
     "nanoid": "^3.3.7",
