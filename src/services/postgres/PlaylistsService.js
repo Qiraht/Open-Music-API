@@ -5,8 +5,9 @@ const NotFoundError = require('../../exceptions/NotFoundError');
 const AuthorizationError = require('../../exceptions/AuthorizationError');
 
 class PlaylistsService {
-  constructor(collaborationsService) {
+  constructor(songsService, collaborationsService) {
     this._pool = new Pool();
+    this._songsService = songsService;
     this._collaborationsService = collaborationsService;
   }
 
@@ -56,6 +57,8 @@ class PlaylistsService {
 
   async addPlaylistSongs(playlistId, songId) {
     const id = `ps-${nanoid(16)}`;
+
+    await this._songsService.getSongById(songId);
 
     const query = {
       text: 'INSERT INTO playlist_songs VALUES($1, $2, $3) RETURNING id',
