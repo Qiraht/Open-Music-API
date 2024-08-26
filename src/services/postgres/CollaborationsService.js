@@ -3,12 +3,15 @@ const { nanoid } = require('nanoid');
 const InvariantError = require('../../exceptions/InvariantError');
 
 class CollaborationsService {
-  constructor() {
+  constructor(usersService) {
     this._pool = new Pool();
+    this._usersService = usersService;
   }
 
   async addCollaboration(playlistId, userId) {
     const id = `collab-${nanoid(16)}`;
+
+    await this._usersService.getUserById(userId);
 
     const query = {
       text: 'INSERT INTO collaborations VALUES($1, $2, $3) RETURNING id',
@@ -39,7 +42,7 @@ class CollaborationsService {
 
   async verifyCollaborator(playlistId, userId) {
     const query = {
-      text: 'SELECT * FROM collaborations WHERE playlist_id = $1 AND user_id =$2',
+      text: 'SELECT * FROM collaborations WHERE playlist_id = $1 AND user_id = $2',
       values: [playlistId, userId],
     };
 
