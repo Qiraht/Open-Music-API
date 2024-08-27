@@ -34,5 +34,5 @@ exports.up = (pgm) => {
  * @returns {Promise<void> | void}
  */
 exports.down = (pgm) => {
-  pgm.dropTable('authentications');
+  pgm.dropTable('collaborations', { options: 'CASCADE' });
 };
