@@ -51,7 +51,7 @@ class PlaylistsService {
     const result = await this._pool.query(query);
 
     if (!result.rows.length) {
-      throw new NotFoundError('Playlist gagal dihapus. Id tidak ditemukan');
+      throw new InvariantError('Playlist gagal dihapus');
     }
   }
 
@@ -98,7 +98,8 @@ class PlaylistsService {
       id: resultPlaylist.rows[0].id,
       name: resultPlaylist.rows[0].name,
       username: resultPlaylist.rows[0].username,
-      songs: resultSongs.rows, };
+      songs: resultSongs.rows,
+    };
   }
 
   async deletePlaylistSongs(playlistId, songId) {
@@ -110,7 +111,7 @@ class PlaylistsService {
     const result = await this._pool.query(query);
 
     if (!result.rows.length) {
-      throw new NotFoundError('Lagu gagal dihapus dari Playlists. Id tidak ditemukan');
+      throw new InvariantError('Lagu gagal dihapus dari Playlists');
     }
   }
 
