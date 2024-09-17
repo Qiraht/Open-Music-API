@@ -134,3 +134,6 @@ jsconfig.json
 
 # VSCode Workspace Config
 .vscode/
+
+# Image Upload
+src/api/uploads/file/images/
