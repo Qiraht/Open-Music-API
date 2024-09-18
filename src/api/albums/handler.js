@@ -25,8 +25,8 @@ class AlbumsHandler {
   }
 
   async getAlbumByIdHandler(request) {
-    const { id } = request.params;
-    const album = await this._service.getAlbumById(id);
+    const { albumId } = request.params;
+    const album = await this._service.getAlbumById(albumId);
 
     return {
       status: 'success',
@@ -38,8 +38,8 @@ class AlbumsHandler {
 
   async putAlbumByIdHandler(request) {
     this._validator.validateAlbumPayload(request.payload);
-    const { id } = request.params;
-    await this._service.editAlbumById(id, request.payload);
+    const { albumId } = request.params;
+    await this._service.editAlbumById(albumId, request.payload);
 
     return {
       status: 'success',
@@ -48,12 +48,55 @@ class AlbumsHandler {
   }
 
   async deleteAlbumByIdHandler(request) {
-    const { id } = request.params;
-    await this._service.deleteAlbumById(id);
+    const { albumId } = request.params;
+    await this._service.deleteAlbumById(albumId);
 
     return {
       status: 'success',
       message: 'Album berhasil dihapus',
+    };
+  }
+
+  async postAlbumLikesHandler(request, h) {
+    const { albumId } = request.params;
+    const { id: credentialId } = request.auth.credentials;
+
+    await this._service.getAlbumById(albumId);
+    await this._service.checkAlbumLikes(albumId, credentialId);
+    await this._service.addAlbumLikes(albumId, credentialId);
+
+    const response = h.response({
+      status: 'success',
+      message: 'Berhasil menambahkan like ke Album',
+    });
+    response.code(201);
+    return response;
+  }
+
+  async deleteAlbumLikeHandler(request) {
+    const { albumId } = request.params;
+    const { id: credentialId } = request.auth.credentials;
+
+    await this._service.getAlbumById(albumId);
+    await this._service.deleteAlbumLikes(albumId, credentialId);
+
+    return {
+      status: 'success',
+      message: 'Like berhasil dihapus dari Album'
+    };
+  }
+
+  async getAlbumLikesHandler(request) {
+    const { albumId } = request.params;
+
+    await this._service.getAlbumById(albumId);
+    const likes = await this._service.getAlbumLikes(albumId);
+
+    return {
+      status: 'success',
+      data: {
+        likes
+      },
     };
   }
 }
