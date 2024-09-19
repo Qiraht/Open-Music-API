@@ -1,3 +1,6 @@
+const config = require('../../utils/config');
+
+
 class UploadsHandler {
   constructor(service, albumsService, validator) {
     this._service = service;
@@ -13,7 +16,7 @@ class UploadsHandler {
     this._validator.validateImageCover(cover.hapi.headers);
 
     const filename = await this._service.writeFile(cover, cover.hapi);
-    const fileLocation = `http://${process.env.HOST}:${process.env.PORT}/uploads/cover/${filename}`;
+    const fileLocation = `http://${config.app.host}:${config.app.port}/uploads/cover/${filename}`;
 
     await this._albumsService.addAlbumCover(fileLocation, albumId);
 
