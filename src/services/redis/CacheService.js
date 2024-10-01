@@ -30,6 +30,12 @@ class CacheService {
     return result;
   }
 
+  async scanDelete(key) {
+    for await (const data of this._client.scanIterator({ MATCH: `${key}*` })) {
+      this.delete(data);
+    }
+  }
+
   delete(key) {
     return this._client.del(key);
   }

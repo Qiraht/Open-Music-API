@@ -24,8 +24,20 @@ class SongsHandler {
     return response;
   }
 
-  async getSongsHandler(request) {
+  async getSongsHandler(request, h) {
     const songs = await this._service.getSongs(request.query);
+
+    if (songs.useCache) {
+      const response = h.response({
+        status: 'success',
+        data: {
+          songs: songs.data,
+        },
+      });
+      response.code(200);
+      response.header('X-Data-Source', 'cache');
+      return response;
+    }
     return {
       status: 'success',
       data: {
@@ -34,10 +46,21 @@ class SongsHandler {
     };
   }
 
-  async getSongByIdHandler(request) {
+  async getSongByIdHandler(request, h) {
     const { songId } = request.params;
     const song = await this._service.getSongById(songId);
 
+    if (song.useCache) {
+      const response = h.response({
+        status: 'success',
+        data: {
+          song: song.data,
+        },
+      });
+      response.code(200);
+      response.header('X-Data-Source', 'cache');
+      return response;
+    }
     return {
       status: 'success',
       data: {
