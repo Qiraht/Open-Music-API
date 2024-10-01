@@ -10,9 +10,9 @@
     "migrate": "node-pg-migrate"
   },
   "keywords": [],
-  "author": "",
+  "author": "Thariq Aulia Akbar",
   "license": "ISC",
-  "description": "Second Re-iteration of my submission, because i've done a bad things, pretty much i've finished all of the features, but didn't test everytime a new feature implemented and it was grave mistake only did the testing after everything was done and debugging it was a mistake. Where it should have been like this, new feature implemented => test feature => continue fixing/implementing feature. so i decided to restart it again",
+  "description": "",
   "devDependencies": {
     "@eslint/js": "^9.8.0",
     "eslint": "^9.8.0",
